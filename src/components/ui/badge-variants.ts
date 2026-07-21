@@ -15,27 +15,33 @@ export const badgeVariants = cva(
         locked: "border-border bg-muted/70 text-muted-foreground hover:bg-muted/80",
         inProgress: "border-transparent bg-purple-500 text-white hover:bg-purple-500/90",
 
-        // Task status — central vocabulary, see src/lib/status-variants.ts
-        taskTodo: "border-border bg-muted text-muted-foreground hover:bg-muted/80",
+        // Task status
+        taskNotStarted: "border-border bg-muted text-muted-foreground hover:bg-muted/80",
         taskInProgress: "border-transparent bg-primary/15 text-primary hover:bg-primary/20",
-        taskDone: "border-transparent bg-primary text-primary-foreground hover:bg-primary/90",
-        taskCancelled: "border-transparent bg-destructive/10 text-destructive hover:bg-destructive/15",
+        taskWaiting: "border-transparent bg-primary/10 text-primary hover:bg-primary/15",
+        taskComplete: "border-transparent bg-primary text-primary-foreground hover:bg-primary/90",
+        taskOnHold: "border-border bg-muted text-muted-foreground hover:bg-muted/80",
 
-        // Attention level — indigo / amber / destructive red only
-        attentionInfo: "border-transparent bg-primary/10 text-primary hover:bg-primary/15",
-        attentionWarning:
+        // Attention — primary indigo / amber / destructive red
+        attentionOnTrack: "border-transparent bg-primary/10 text-primary hover:bg-primary/15",
+        attentionNeedsAttention:
           "border-transparent bg-amber-500/15 text-amber-700 hover:bg-amber-500/20 dark:text-amber-400",
-        attentionCritical: "border-transparent bg-destructive/15 text-destructive hover:bg-destructive/20",
+        attentionLateOffTrack: "border-transparent bg-destructive/15 text-destructive hover:bg-destructive/20",
 
         // Contract status
         contractDraft: "border-border bg-muted text-muted-foreground hover:bg-muted/80",
         contractActive: "border-transparent bg-primary/15 text-primary hover:bg-primary/20",
+        contractExpiring:
+          "border-transparent bg-amber-500/15 text-amber-700 hover:bg-amber-500/20 dark:text-amber-400",
+        contractExtended: "border-transparent bg-primary/10 text-primary hover:bg-primary/15",
         contractCompleted: "border-transparent bg-primary text-primary-foreground hover:bg-primary/90",
-        contractAtRisk: "border-transparent bg-destructive/15 text-destructive hover:bg-destructive/20",
+        contractTerminated: "border-transparent bg-destructive/15 text-destructive hover:bg-destructive/20",
+        contractArchived: "border-border bg-muted/70 text-muted-foreground hover:bg-muted/80",
 
         // Role badge
-        roleOwner: "border-transparent bg-primary text-primary-foreground hover:bg-primary/90",
-        roleManager: "border-transparent bg-primary/15 text-primary hover:bg-primary/20",
+        rolePlatformOwner: "border-transparent bg-primary text-primary-foreground hover:bg-primary/90",
+        roleTenantAdmin: "border-transparent bg-primary/15 text-primary hover:bg-primary/20",
+        roleManagerEditor: "border-transparent bg-primary/10 text-primary hover:bg-primary/15",
         roleContributor: "border-border bg-background text-foreground hover:bg-muted/60",
         roleViewer: "border-transparent bg-muted text-muted-foreground hover:bg-muted/80",
       },

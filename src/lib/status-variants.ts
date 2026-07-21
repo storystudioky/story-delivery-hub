@@ -1,33 +1,49 @@
 import {
-  AlertOctagon,
-  AlertTriangle,
+  Archive,
+  Ban,
   CheckCircle2,
   Circle,
+  CirclePause,
+  Clock3,
   Crown,
   Eye,
   FileEdit,
-  Info,
+  Hourglass,
   PlayCircle,
-  ShieldAlert,
+  Shield,
+  TriangleAlert,
   UserCircle,
   UserCog,
-  XCircle,
   type LucideIcon,
 } from "lucide-react";
 
 import type { BadgeProps } from "@/components/ui/badge";
 
 /**
- * Central Delivery Hub status/role vocabulary.
+ * Central Delivery Hub status/role vocabulary (authoritative PRD alignment).
  *
- * Every page-level component should consume these types and lookup maps
+ * Page-level components must consume these types and lookup maps
  * instead of inventing page-local status strings or badge colors.
+ *
+ * Do not introduce separate risk or issue status vocabularies.
  */
 
-export type TaskStatus = "todo" | "in_progress" | "done" | "cancelled";
-export type AttentionLevel = "info" | "warning" | "critical";
-export type ContractStatus = "draft" | "active" | "completed" | "at_risk";
-export type RoleBadge = "owner" | "manager" | "contributor" | "viewer";
+export type TaskStatus = "not_started" | "in_progress" | "waiting" | "complete" | "on_hold";
+export type AttentionLevel = "on_track" | "needs_attention" | "late_off_track";
+export type ContractStatus =
+  | "draft"
+  | "active"
+  | "expiring"
+  | "extended"
+  | "completed"
+  | "terminated"
+  | "archived";
+export type RoleBadge =
+  | "platform_owner"
+  | "tenant_admin"
+  | "manager_editor"
+  | "contributor"
+  | "viewer";
 
 type BadgeVariant = NonNullable<BadgeProps["variant"]>;
 
@@ -39,18 +55,26 @@ function assertNever(value: never): never {
 // Task status
 // ============================================
 
-export const TASK_STATUS_VALUES: TaskStatus[] = ["todo", "in_progress", "done", "cancelled"];
+export const TASK_STATUS_VALUES: TaskStatus[] = [
+  "not_started",
+  "in_progress",
+  "waiting",
+  "complete",
+  "on_hold",
+];
 
 export function getTaskStatusLabel(status: TaskStatus): string {
   switch (status) {
-    case "todo":
-      return "To do";
+    case "not_started":
+      return "Not started";
     case "in_progress":
       return "In progress";
-    case "done":
-      return "Done";
-    case "cancelled":
-      return "Cancelled";
+    case "waiting":
+      return "Waiting";
+    case "complete":
+      return "Complete";
+    case "on_hold":
+      return "On hold";
     default:
       return assertNever(status);
   }
@@ -58,14 +82,16 @@ export function getTaskStatusLabel(status: TaskStatus): string {
 
 export function getTaskStatusBadgeVariant(status: TaskStatus): BadgeVariant {
   switch (status) {
-    case "todo":
-      return "taskTodo";
+    case "not_started":
+      return "taskNotStarted";
     case "in_progress":
       return "taskInProgress";
-    case "done":
-      return "taskDone";
-    case "cancelled":
-      return "taskCancelled";
+    case "waiting":
+      return "taskWaiting";
+    case "complete":
+      return "taskComplete";
+    case "on_hold":
+      return "taskOnHold";
     default:
       return assertNever(status);
   }
@@ -73,33 +99,44 @@ export function getTaskStatusBadgeVariant(status: TaskStatus): BadgeVariant {
 
 export function getTaskStatusIcon(status: TaskStatus): LucideIcon {
   switch (status) {
-    case "todo":
+    case "not_started":
       return Circle;
     case "in_progress":
       return PlayCircle;
-    case "done":
+    case "waiting":
+      return Hourglass;
+    case "complete":
       return CheckCircle2;
-    case "cancelled":
-      return XCircle;
+    case "on_hold":
+      return CirclePause;
     default:
       return assertNever(status);
   }
+}
+
+/** Visual “resolved” treatment applies only to complete — not waiting or on hold. */
+export function isTaskStatusResolved(status: TaskStatus): boolean {
+  return status === "complete";
 }
 
 // ============================================
 // Attention level
 // ============================================
 
-export const ATTENTION_LEVEL_VALUES: AttentionLevel[] = ["info", "warning", "critical"];
+export const ATTENTION_LEVEL_VALUES: AttentionLevel[] = [
+  "on_track",
+  "needs_attention",
+  "late_off_track",
+];
 
 export function getAttentionLevelLabel(level: AttentionLevel): string {
   switch (level) {
-    case "info":
-      return "Info";
-    case "warning":
-      return "Attention";
-    case "critical":
-      return "Critical";
+    case "on_track":
+      return "On track";
+    case "needs_attention":
+      return "Needs attention";
+    case "late_off_track":
+      return "Late/off track";
     default:
       return assertNever(level);
   }
@@ -107,12 +144,12 @@ export function getAttentionLevelLabel(level: AttentionLevel): string {
 
 export function getAttentionLevelBadgeVariant(level: AttentionLevel): BadgeVariant {
   switch (level) {
-    case "info":
-      return "attentionInfo";
-    case "warning":
-      return "attentionWarning";
-    case "critical":
-      return "attentionCritical";
+    case "on_track":
+      return "attentionOnTrack";
+    case "needs_attention":
+      return "attentionNeedsAttention";
+    case "late_off_track":
+      return "attentionLateOffTrack";
     default:
       return assertNever(level);
   }
@@ -120,22 +157,34 @@ export function getAttentionLevelBadgeVariant(level: AttentionLevel): BadgeVaria
 
 export function getAttentionLevelIcon(level: AttentionLevel): LucideIcon {
   switch (level) {
-    case "info":
-      return Info;
-    case "warning":
-      return AlertTriangle;
-    case "critical":
-      return AlertOctagon;
+    case "on_track":
+      return CheckCircle2;
+    case "needs_attention":
+      return TriangleAlert;
+    case "late_off_track":
+      return Ban;
     default:
       return assertNever(level);
   }
+}
+
+export function attentionRequiresNote(level: AttentionLevel): boolean {
+  return level === "needs_attention" || level === "late_off_track";
 }
 
 // ============================================
 // Contract status
 // ============================================
 
-export const CONTRACT_STATUS_VALUES: ContractStatus[] = ["draft", "active", "completed", "at_risk"];
+export const CONTRACT_STATUS_VALUES: ContractStatus[] = [
+  "draft",
+  "active",
+  "expiring",
+  "extended",
+  "completed",
+  "terminated",
+  "archived",
+];
 
 export function getContractStatusLabel(status: ContractStatus): string {
   switch (status) {
@@ -143,10 +192,16 @@ export function getContractStatusLabel(status: ContractStatus): string {
       return "Draft";
     case "active":
       return "Active";
+    case "expiring":
+      return "Expiring";
+    case "extended":
+      return "Extended";
     case "completed":
       return "Completed";
-    case "at_risk":
-      return "At risk";
+    case "terminated":
+      return "Terminated";
+    case "archived":
+      return "Archived";
     default:
       return assertNever(status);
   }
@@ -158,10 +213,16 @@ export function getContractStatusBadgeVariant(status: ContractStatus): BadgeVari
       return "contractDraft";
     case "active":
       return "contractActive";
+    case "expiring":
+      return "contractExpiring";
+    case "extended":
+      return "contractExtended";
     case "completed":
       return "contractCompleted";
-    case "at_risk":
-      return "contractAtRisk";
+    case "terminated":
+      return "contractTerminated";
+    case "archived":
+      return "contractArchived";
     default:
       return assertNever(status);
   }
@@ -173,10 +234,16 @@ export function getContractStatusIcon(status: ContractStatus): LucideIcon {
       return FileEdit;
     case "active":
       return PlayCircle;
+    case "expiring":
+      return Clock3;
+    case "extended":
+      return Hourglass;
     case "completed":
       return CheckCircle2;
-    case "at_risk":
-      return ShieldAlert;
+    case "terminated":
+      return Ban;
+    case "archived":
+      return Archive;
     default:
       return assertNever(status);
   }
@@ -186,14 +253,22 @@ export function getContractStatusIcon(status: ContractStatus): LucideIcon {
 // Role badge
 // ============================================
 
-export const ROLE_BADGE_VALUES: RoleBadge[] = ["owner", "manager", "contributor", "viewer"];
+export const ROLE_BADGE_VALUES: RoleBadge[] = [
+  "platform_owner",
+  "tenant_admin",
+  "manager_editor",
+  "contributor",
+  "viewer",
+];
 
 export function getRoleBadgeLabel(role: RoleBadge): string {
   switch (role) {
-    case "owner":
-      return "Owner";
-    case "manager":
-      return "Manager";
+    case "platform_owner":
+      return "Platform owner";
+    case "tenant_admin":
+      return "Tenant administrator";
+    case "manager_editor":
+      return "Manager/editor";
     case "contributor":
       return "Contributor";
     case "viewer":
@@ -205,10 +280,12 @@ export function getRoleBadgeLabel(role: RoleBadge): string {
 
 export function getRoleBadgeVariant(role: RoleBadge): BadgeVariant {
   switch (role) {
-    case "owner":
-      return "roleOwner";
-    case "manager":
-      return "roleManager";
+    case "platform_owner":
+      return "rolePlatformOwner";
+    case "tenant_admin":
+      return "roleTenantAdmin";
+    case "manager_editor":
+      return "roleManagerEditor";
     case "contributor":
       return "roleContributor";
     case "viewer":
@@ -220,9 +297,11 @@ export function getRoleBadgeVariant(role: RoleBadge): BadgeVariant {
 
 export function getRoleBadgeIcon(role: RoleBadge): LucideIcon {
   switch (role) {
-    case "owner":
+    case "platform_owner":
       return Crown;
-    case "manager":
+    case "tenant_admin":
+      return Shield;
+    case "manager_editor":
       return UserCog;
     case "contributor":
       return UserCircle;

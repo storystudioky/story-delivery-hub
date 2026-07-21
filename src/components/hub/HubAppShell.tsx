@@ -9,10 +9,13 @@ import { HubSidebar, type HubNavItem } from "@/components/hub/HubSidebar";
 export interface HubAppShellProps {
   children: React.ReactNode;
   navItems: HubNavItem[];
+  /** Optional secondary nav shown under a Development divider (dev-only destinations). */
+  developmentNavItems?: HubNavItem[];
   currentPath?: string;
   onNavigate?: (href: string) => void;
   brandLabel?: string;
-  /** Slot for a theme toggle control, rendered in the top header. */
+  tenantSwitcherSlot?: React.ReactNode;
+  accountControlsSlot?: React.ReactNode;
   themeToggleSlot?: React.ReactNode;
   mainClassName?: string;
 }
@@ -26,9 +29,12 @@ export interface HubAppShellProps {
 export function HubAppShell({
   children,
   navItems,
+  developmentNavItems,
   currentPath,
   onNavigate,
   brandLabel = "Delivery Hub",
+  tenantSwitcherSlot,
+  accountControlsSlot,
   themeToggleSlot,
   mainClassName,
 }: HubAppShellProps) {
@@ -39,6 +45,24 @@ export function HubAppShell({
     setMobileNavOpen(false);
   };
 
+  const sidebar = (
+    <>
+      <HubSidebar navItems={navItems} currentPath={currentPath} onNavigate={handleNavigate} />
+      {developmentNavItems && developmentNavItems.length > 0 ? (
+        <div className="mt-6 space-y-2">
+          <p className="px-3 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
+            Development
+          </p>
+          <HubSidebar
+            navItems={developmentNavItems}
+            currentPath={currentPath}
+            onNavigate={handleNavigate}
+          />
+        </div>
+      ) : null}
+    </>
+  );
+
   return (
     <div className="min-h-screen bg-muted/30">
       <div className="flex min-h-screen">
@@ -47,15 +71,15 @@ export function HubAppShell({
             <Sparkles className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
             <span className="truncate text-base font-semibold text-foreground">{brandLabel}</span>
           </div>
-          <div className="flex-1 overflow-y-auto px-3 pb-4">
-            <HubSidebar navItems={navItems} currentPath={currentPath} onNavigate={handleNavigate} />
-          </div>
+          <div className="flex-1 overflow-y-auto px-3 pb-4">{sidebar}</div>
         </aside>
 
         <div className="flex min-w-0 flex-1 flex-col">
           <HubHeader
             brandLabel={brandLabel}
             onMobileMenuClick={() => setMobileNavOpen(true)}
+            tenantSwitcherSlot={tenantSwitcherSlot}
+            accountControlsSlot={accountControlsSlot}
             themeToggleSlot={themeToggleSlot}
           />
 
@@ -64,9 +88,7 @@ export function HubAppShell({
               <SheetHeader className="px-4 pt-4">
                 <SheetTitle className="text-left">{brandLabel}</SheetTitle>
               </SheetHeader>
-              <div className="px-3 py-4">
-                <HubSidebar navItems={navItems} currentPath={currentPath} onNavigate={handleNavigate} />
-              </div>
+              <div className="px-3 py-4">{sidebar}</div>
             </SheetContent>
           </Sheet>
 

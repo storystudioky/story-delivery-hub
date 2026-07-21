@@ -39,25 +39,64 @@ Runtime code must never import from:
 | Design-system page | `src/pages/DesignSystem.tsx` |
 | App shell / routes | `src/App.tsx`, `src/main.tsx` |
 
-## Central variants
+## Central variants (authoritative PRD vocabulary)
 
 Page-local badge colours are prohibited. Use:
 
-- Task status: `todo`, `in_progress`, `done`, `cancelled`
-- Attention: `info`, `warning`, `critical`
-- Contract status: `draft`, `active`, `completed`, `at_risk`
-- Roles: `owner`, `manager`, `contributor`, `viewer`
+### Task status
+
+- `not_started` — Not started
+- `in_progress` — In progress
+- `waiting` — Waiting
+- `complete` — Complete
+- `on_hold` — On hold
+
+A task is visually resolved only when status is `complete`. Waiting and on hold are not completed states.
+
+### Attention
+
+- `on_track` — On track (primary indigo)
+- `needs_attention` — Needs attention (amber) — requires attention note
+- `late_off_track` — Late/off track (destructive red) — requires attention note
+
+Do not introduce separate risk or issue status vocabularies.
+
+### Contract status
+
+- `draft`, `active`, `expiring`, `extended`, `completed`, `terminated`, `archived`
+
+### Roles
+
+- `platform_owner` — Platform owner
+- `tenant_admin` — Tenant administrator
+- `manager_editor` — Manager/editor
+- `contributor` — Contributor
+- `viewer` — Viewer
 
 Wrappers: `TaskStatusBadge`, `AttentionBadge`, `ContractStatusBadge`, `RoleStatusBadge`.
 
 ## Hub patterns
 
-- `HubAppShell` — desktop left nav + mobile sheet nav
+- `HubAppShell` — desktop left nav + mobile sheet nav; slots for tenant switcher, account controls, theme toggle
 - `HubHeader` / `HubSidebar` / `HubPageHeader`
+- `TenantSwitcher` / `AccountControls`
 - `KpiCard`, `CommercialSummaryCard`, `FilterToolbar`, `ResponsiveDataTable`
-- `TaskRow`, `TaskQuickEditDrawer`
-- `ReportSection`, `LockedReportBanner`
-- `EmptyState`, `LoadingState`, `AccessDeniedState`
+- `WorkstreamCard`, `EntityCard`
+- `TaskRow`, `TaskQuickEditDrawer` (status, attention, owner, due date, latest update, View source; conditional attention note / waiting fields)
+- `ReportSection`, `LockedReportBanner` (immutable snapshot framing)
+- `EmptyState`, `LoadingState`, `ErrorState`, `AccessDeniedState`
+
+## Authoritative product navigation
+
+Overview · Internal · Vendors · Contracts · Workstreams · Reports · Tools · Settings
+
+Tasks and Projects are not top-level navigation destinations. The design-system route may appear under a separated Development section in development only.
+
+## Terminology
+
+Prefer tenant language (`tenant`, `tenant administrator`) over SPARK workspace wording. Prefer `contract` / `contract view` over “contract board”.
+
+Commercial mock examples should use KYD or CI$ rather than generic USD dollars.
 
 ## Intentional divergences from SPARK
 
@@ -67,6 +106,7 @@ Wrappers: `TaskStatusBadge`, `AttentionBadge`, `ContractStatusBadge`, `RoleStatu
 4. TipTap editor styles and Market Survey orb/chat surfaces were excluded from Hub tokens.
 5. Presentation patterns were rewritten as prop-driven Hub components with mock-friendly APIs (no campaign hooks, Supabase, or SPARK query keys).
 6. `/design-system` is development-only (`import.meta.env.DEV`) and is not part of production navigation.
+7. Domain vocabulary follows the Delivery Hub PRD, not SPARK campaign/task enums.
 
 ## Verification
 
