@@ -1,0 +1,485 @@
+﻿@layer base {
+  h3 {
+    @apply text-[20px] leading-7;
+  }
+
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 9%;
+    --primary: 231 65% 57%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 11% 96%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 210 11% 96%;
+    --muted-foreground: 215 14% 44%;
+    --accent: 215 25% 95%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 231 65% 57%;
+    --success-foreground: 0 0% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 98%;
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 98%;
+    --available: 65 95% 58%;
+    --available-foreground: 0 0% 9%;
+    --current: 231 65% 57%;
+    --current-foreground: 0 0% 98%;
+    --locked: 0 0% 60%;
+    --locked-foreground: 0 0% 40%;
+    --border: 215 16% 92%;
+    --input: 215 16% 92%;
+    --ring: 231 65% 57%;
+    --radius: 0.75rem;
+    --radius-sm: 0.5rem;
+    --radius-input: 0.75rem;
+    --radius-full: 9999px;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Semantic Text Colors */
+    --text-strong: 220 100% 7%;
+    --text-weak: 220 100% 10%;
+    --text-brand: 231 65% 57%;
+    --text-inverse: 0 0% 100%;
+
+    /* Brand Fill & Stroke */
+    --fill-brand-strong: 231 65% 57%;
+    --stroke-brand-strong: 231 65% 57%;
+    --stroke-weak: 231 100% 20%;
+    --stroke-selected: 231 65% 57%;
+    --fill-selected: 231 65% 57%;
+
+    /* SPARK Brand Colors */
+    --spark-indigo: 231 65% 57%;
+    --spark-lime: 65 95% 58%;
+    --spark-purple: 285 100% 67%;
+    --spark-gray: 0 0% 40%;
+    --spark-surface: 0 0% 98%;
+    /* Delivery Hub brand aliases (same values as inherited SPARK accents) */
+    --hub-indigo: 231 65% 57%;
+    --hub-lime: 65 95% 58%;
+    --hub-purple: 285 100% 67%;
+    --hub-gray: 0 0% 40%;
+    --hub-surface: 0 0% 98%;
+
+    /* Status Colors */
+    --status-todo: 215 14% 60%;
+    --status-in-progress: 231 65% 57%;
+    --status-done: 231 65% 57%;
+    --status-cancelled: 0 0% 60%;
+
+    /* Icon Colors */
+    --icon-brand: 231 65% 57%;
+    --icon-neutral: 231 100% 15%;
+
+    /* Typography Scale */
+    --text-xs: 0.75rem;
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-lg: 1.125rem;
+    --text-xl: 1.25rem;
+    --text-2xl: 1.5rem;
+    --text-3xl: 1.875rem;
+    --text-4xl: 2.25rem;
+
+    /* Spacing Scale */
+    --spacing-xs: 0.5rem;
+    --spacing-sm: 0.75rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+  }
+
+  .dark {
+    --background: 0 0% 9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 11%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 11%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 235 70% 60%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 215 14% 16%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 215 14% 16%;
+    --muted-foreground: 215 14% 60%;
+    --accent: 215 20% 20%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 98%;
+    --success: 235 70% 60%;
+    --success-foreground: 0 0% 98%;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 98%;
+    --info: 217 91% 60%;
+    --info-foreground: 0 0% 98%;
+    --available: 65 95% 58%;
+    --available-foreground: 0 0% 9%;
+    --current: 235 70% 60%;
+    --current-foreground: 0 0% 98%;
+    --locked: 0 0% 40%;
+    --locked-foreground: 0 0% 60%;
+    --border: 215 14% 20%;
+    --input: 215 14% 20%;
+    --ring: 235 70% 60%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* SPARK Brand Colors (dark) */
+    --spark-indigo: 235 70% 60%;
+    --spark-lime: 65 95% 58%;
+    --spark-purple: 285 100% 67%;
+    --spark-gray: 0 0% 60%;
+    --spark-surface: 0 0% 11%;
+    /* Delivery Hub brand aliases (dark) */
+    --hub-indigo: 235 70% 60%;
+    --hub-lime: 65 95% 58%;
+    --hub-purple: 285 100% 67%;
+    --hub-gray: 0 0% 60%;
+    --hub-surface: 0 0% 11%;
+
+    /* Status Colors (dark) */
+    --status-todo: 215 14% 50%;
+    --status-in-progress: 235 70% 60%;
+    --status-done: 235 70% 60%;
+    --status-cancelled: 0 0% 50%;
+
+    --stroke-selected: 235 70% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+@layer utilities {
+
+  /* Typography Scale */
+  .text-display-sm {
+    font-size: var(--text-2xl);
+    line-height: 2rem;
+    font-weight: 700;
+  }
+
+  .text-display-md {
+    font-size: var(--text-3xl);
+    line-height: 2.25rem;
+    font-weight: 700;
+  }
+
+  .text-display-lg {
+    font-size: var(--text-4xl);
+    line-height: 2.5rem;
+    font-weight: 700;
+  }
+
+  .text-heading-sm {
+    font-size: var(--text-lg);
+    line-height: 1.75rem;
+    font-weight: 600;
+  }
+
+  .text-heading-md {
+    font-size: var(--text-xl);
+    line-height: 1.75rem;
+    font-weight: 600;
+  }
+
+  .text-heading-lg {
+    font-size: var(--text-2xl);
+    line-height: 2rem;
+    font-weight: 600;
+  }
+
+  .text-body-sm {
+    font-size: var(--text-sm);
+    line-height: 1.25rem;
+  }
+
+  .text-body-md {
+    font-size: var(--text-base);
+    line-height: 1.5rem;
+  }
+
+  .text-body-lg {
+    font-size: var(--text-lg);
+    line-height: 1.75rem;
+  }
+
+  /* SPARK Brand Typography */
+  .text-title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 600;
+    color: hsl(var(--text-strong) / 0.90);
+  }
+
+  .text-body {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    font-weight: 400;
+  }
+
+  .text-body-strong {
+    color: hsl(var(--text-strong) / 0.90);
+  }
+
+  .text-body-weak {
+    color: hsl(var(--text-weak) / 0.65);
+  }
+
+  /* Spacing Scale */
+  .p-spacing-xs {
+    padding: var(--spacing-xs);
+  }
+
+  .p-spacing-sm {
+    padding: var(--spacing-sm);
+  }
+
+  .p-spacing-md {
+    padding: var(--spacing-md);
+  }
+
+  .p-spacing-lg {
+    padding: var(--spacing-lg);
+  }
+
+  .p-spacing-xl {
+    padding: var(--spacing-xl);
+  }
+
+  .p-spacing-2xl {
+    padding: var(--spacing-2xl);
+  }
+
+  .gap-spacing-xs {
+    gap: var(--spacing-xs);
+  }
+
+  .gap-spacing-sm {
+    gap: var(--spacing-sm);
+  }
+
+  .gap-spacing-md {
+    gap: var(--spacing-md);
+  }
+
+  .gap-spacing-lg {
+    gap: var(--spacing-lg);
+  }
+
+  .gap-spacing-xl {
+    gap: var(--spacing-xl);
+  }
+
+  .space-y-spacing-xs>*+* {
+    margin-top: var(--spacing-xs);
+  }
+
+  .space-y-spacing-sm>*+* {
+    margin-top: var(--spacing-sm);
+  }
+
+  .space-y-spacing-md>*+* {
+    margin-top: var(--spacing-md);
+  }
+
+  .space-y-spacing-lg>*+* {
+    margin-top: var(--spacing-lg);
+  }
+
+  .mb-spacing-xs {
+    margin-bottom: var(--spacing-xs);
+  }
+
+  .mb-spacing-sm {
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .mb-spacing-md {
+    margin-bottom: var(--spacing-md);
+  }
+
+  .mb-spacing-lg {
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .mb-spacing-xl {
+    margin-bottom: var(--spacing-xl);
+  }
+
+  /* Semantic Colors */
+  .text-success {
+    color: hsl(var(--success));
+  }
+
+  .text-warning {
+    color: hsl(var(--warning));
+  }
+
+  .text-info {
+    color: hsl(var(--info));
+  }
+
+  .bg-success {
+    background-color: hsl(var(--success));
+  }
+
+  .bg-warning {
+    background-color: hsl(var(--warning));
+  }
+
+  .bg-info {
+    background-color: hsl(var(--info));
+  }
+
+  /* Text Semantic Colors */
+  .text-strong {
+    color: hsl(var(--text-strong) / 0.90);
+  }
+
+  .text-weak {
+    color: hsl(var(--text-weak) / 0.65);
+  }
+
+  .text-brand {
+    color: hsl(var(--text-brand));
+  }
+
+  .text-inverse {
+    color: hsl(var(--text-inverse));
+  }
+
+  /* Icon Colors */
+  .text-icon-brand {
+    color: hsl(var(--icon-brand));
+  }
+
+  .text-icon-neutral {
+    color: hsl(var(--icon-neutral));
+  }
+
+  /* Border Colors */
+  .border-stroke-weak {
+    border-color: hsl(var(--stroke-weak) / 0.10);
+  }
+
+  /* Muted text for locked service cards */
+  .text-muted-locked {
+    color: hsl(var(--locked) / 0.55);
+  }
+
+  /* Hide scrollbars while preserving scroll (StepIndicator, tab rails) */
+  .hide-scrollbar,
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar,
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Safe area padding for notched devices */
+  .pb-safe {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+  }
+
+  .pt-safe {
+    padding-top: max(0px, env(safe-area-inset-top));
+  }
+
+  @media (max-width: 639px) {
+    .text-display-sm {
+      font-size: var(--text-xl);
+      line-height: 1.75rem;
+    }
+
+    .text-display-md {
+      font-size: var(--text-2xl);
+      line-height: 2rem;
+    }
+
+    .text-display-lg {
+      font-size: var(--text-3xl);
+      line-height: 2.25rem;
+    }
+  }
+}
+
+/* Rainbow Gradient Border
+   Outer: .rainbow-border (padding: 3px, border-radius: 20px, display: flex)
+   Inner: must use rounded-[17px], bg-card, and flex-1 to fill uniformly.
+   DO NOT remove display:flex or flex-1 â€” this ensures uniform 3px border. */
+.rainbow-border {
+  display: flex;
+  background: linear-gradient(135deg,
+      hsl(231, 65%, 57%) 0%,
+      hsl(65, 95%, 58%) 25%,
+      hsl(285, 100%, 67%) 50%,
+      hsl(231, 65%, 57%) 75%,
+      hsl(0, 0%, 40%) 100%);
+  background-size: 300% 300%;
+  animation: rainbowShift 8s ease infinite;
+  border-radius: 20px;
+  padding: 3px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rainbow-border:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10);
+}
+
+@keyframes rainbowShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+
+/* Delivery Hub frosted surface (adapted from SPARK campaign cards) */
+.hub-frosted-surface {
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background-color: hsl(var(--background) / 0.4);
+  backdrop-filter: blur(24px);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.05),
+    0 2px 8px -2px rgba(0, 0, 0, 0.05);
+}
+
+.hub-frosted-surface:hover {
+  background-color: hsl(var(--background) / 0.6);
+}
+
